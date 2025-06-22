@@ -22,10 +22,8 @@ export const options = {
         http_req_duration: ['p(90)<1250','p(95)<1300'],
         checks: ['rate>=0.99'],
     },
-    ext: {
-        loadimpact: {
-            projectID: 3663160
-        }
+    cloud: {
+        projectID: 3778708
     }
 }
 
@@ -37,7 +35,7 @@ export default function () {
     }
 
     let res = http.post(
-        'https://test-api.k6.io/user/register/',
+        'http://localhost:8000/user/register/',
         JSON.stringify(credentials),
         {
             headers: {
@@ -54,7 +52,7 @@ export default function () {
     sleep(randomIntBetween(0, 5));
 
     res = http.post(
-        'https://test-api.k6.io/auth/token/login/',
+        'http://localhost:8000/auth/token/login/',
         JSON.stringify(
             {
                 username: credentials.username,
@@ -78,7 +76,7 @@ export default function () {
     sleep(randomIntBetween(0, 5));
 
     res = http.get(
-        'https://test-api.k6.io/my/crocodiles/',
+        'http://localhost:8000/my/crocodiles/',
         {
             headers: {
                 Authorization: 'Bearer ' + accessToken
@@ -94,7 +92,7 @@ export default function () {
     sleep(randomIntBetween(0, 5));
 
     res = http.post(
-        'https://test-api.k6.io/my/crocodiles/',
+        'http://localhost:8000/my/crocodiles/',
         JSON.stringify(
             {
                 name: 'Random croc',
@@ -114,7 +112,7 @@ export default function () {
     sleep(randomIntBetween(0, 5));
 
     res = http.get(
-        `https://test-api.k6.io/my/crocodiles/${newCrocodileId}/`,
+        `http://localhost:8000/my/crocodiles/${newCrocodileId}/`,
         {
             headers: {
                 Authorization: 'Bearer ' + accessToken
@@ -130,7 +128,7 @@ export default function () {
     sleep(randomIntBetween(0, 5));
 
     res = http.put(
-        `https://test-api.k6.io/my/crocodiles/${newCrocodileId}/`,
+        `http://localhost:8000/my/crocodiles/${newCrocodileId}/`,
         JSON.stringify(
             {
                 name: 'Updated Random croc',
@@ -154,7 +152,7 @@ export default function () {
     sleep(randomIntBetween(0, 5));
 
     res = http.patch(
-        `https://test-api.k6.io/my/crocodiles/${newCrocodileId}/`,
+        `http://localhost:8000/my/crocodiles/${newCrocodileId}/`,
         JSON.stringify(
             {
                 sex: 'F'
@@ -176,7 +174,7 @@ export default function () {
     sleep(randomIntBetween(0, 5));
 
     res = http.del(
-        `https://test-api.k6.io/my/crocodiles/${newCrocodileId}/`,
+        `http://localhost:8000/my/crocodiles/${newCrocodileId}/`,
         null,
         {
             headers: {
