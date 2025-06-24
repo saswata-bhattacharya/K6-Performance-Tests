@@ -22,8 +22,8 @@ export const options = {
         http_req_duration: ['p(90)<1250','p(95)<1300'],
         checks: ['rate>=0.99'],
     },
-    cloud: {
-        projectID: 3778708
+     cloud: {
+        projectID: 3778628
     }
 }
 
@@ -40,6 +40,9 @@ export default function () {
         {
             headers: {
                 'Content-Type': 'application/json'
+            },
+            tags: {
+                name: 'registerUserURL'
             }
         }
     );
@@ -62,12 +65,15 @@ export default function () {
         {
             headers: {
                 'Content-Type': 'application/json'
+            },
+            tags: {
+                name: 'loginURL'
             }
         }
     );
 
     const accessToken = res.json().access;
-    
+
     check(res, {
         'status is 200': (r) => r.status === 200,
         'has token': (r) => r.json().access !== undefined
@@ -80,6 +86,9 @@ export default function () {
         {
             headers: {
                 Authorization: 'Bearer ' + accessToken
+            },
+            tags: {
+                name: 'getMyCrocodilesURL'
             }
         }
     );
@@ -104,6 +113,9 @@ export default function () {
             headers: {
                 Authorization: 'Bearer ' + accessToken,
                 'Content-Type': 'application/json'
+            },
+            tags: {
+                name: 'createNewCrocodileURL'
             }
         }
     );
@@ -116,6 +128,9 @@ export default function () {
         {
             headers: {
                 Authorization: 'Bearer ' + accessToken
+            },
+            tags: {
+                name: 'getCrocodileURL'
             }
         }
     );
@@ -140,6 +155,9 @@ export default function () {
             headers: {
                 Authorization: 'Bearer ' + accessToken,
                 'Content-Type': 'application/json'
+            },
+            tags: {
+                name: 'putCrocodileURL'
             }
         }
     );
@@ -162,6 +180,9 @@ export default function () {
             headers: {
                 Authorization: 'Bearer ' + accessToken,
                 'Content-Type': 'application/json'
+            },
+            tags: {
+                name: 'patchCrocodileURL'
             }
         }
     );
@@ -188,7 +209,7 @@ export default function () {
 
     check(res, {
         'status is 204': (r) => r.status === 204
-    });    
+    });
 
     sleep(randomIntBetween(0, 5));
 }
